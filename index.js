@@ -1,5 +1,4 @@
-require('babel-core/register');
-require('babel-polyfill');
 require('dotenv').config();
-// require('./sign');
-require('./server');
+require('babel-core/register');
+require('./sign');
+// require('./server');

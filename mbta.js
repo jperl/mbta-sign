@@ -29,5 +29,5 @@ function updateMassAveEta() {
 // Update the eta on an interval
 updateMassAveEta();
 
-// const interval = Number(process.env.UPDATE_ETA_INTERVAL);
-// setInterval(updateMassAveEta, interval);
+const interval = Number(process.env.UPDATE_ETA_INTERVAL);
+setInterval(updateMassAveEta, interval);

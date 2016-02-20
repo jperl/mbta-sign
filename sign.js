@@ -1,7 +1,7 @@
 import LedMatrix from 'node-rpi-rgb-led-matrix';
 import { getFrame } from './output';
 
-const matrix = new LedMatrix(32, 1);
+const matrix = new LedMatrix(32, 2, 1);
 
 function output(pixels) {
   var x = 0;
@@ -23,6 +23,9 @@ function output(pixels) {
   }
 }
 
-// setInterval(() => {
-//   output(getFrame());
-// }, 10 * 1000);
+console.log('Starting sign output');
+
+output(getFrame());
+setInterval(() => {
+  output(getFrame());
+}, 1000);
