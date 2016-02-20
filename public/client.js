@@ -1,8 +1,13 @@
+var pitch = 20;
+
 $(document).ready(function () {
   var socket = io.connect();
 
   // get canvas element and create context
   var canvas = document.getElementById('matrix');
+  canvas.width = 64 * pitch;
+  canvas.height = 32 * pitch;
+
   var context = canvas.getContext('2d');
 
   // draw canvas received from server
@@ -18,18 +23,27 @@ $(document).ready(function () {
       var b = pixels[i + 2];
       var a = Math.round((pixels[i + 3] / 256) * 100) / 100;
 
+      // Plate color
+      context.fillStyle = 'rgba(0,0,0,1)';
+      context.fillRect(x, y, pitch, pitch);
+
+      context.beginPath();
+      context.arc(x + (pitch / 2), y + (pitch / 2), pitch / 3, 0, 2 * Math.PI, false);
       context.fillStyle = `rgba(${r},${g},${b},${a})`;
-      context.fillRect(x, y, 1, 1);
+      context.fill();
+
+      // context.fillStyle = `rgba(${r},${g},${b},${a})`;
+      // context.fillRect(x, y, 1, 1);
 
       // if (r !== 0) {
       //   context.fillStyle = `rgb(${r},${g},${b})`;
       //   context.fillRect(x, y, 1, 1);
       // }
 
-      x++;
-      if (x % 64 === 0) {
+      x += pitch;
+      if (x % canvas.width === 0) {
         x = 0;
-        y++;
+        y += pitch;
       }
     }
   });
