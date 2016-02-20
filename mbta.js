@@ -26,6 +26,8 @@ function updateMassAveEta() {
   });
 }
 
-// Update mass ave eta
+// Update the eta on an interval
 updateMassAveEta();
-setInterval(updateMassAveEta, process.env.UPDATE_ETA_INTERVAL);
+
+// const interval = Number(process.env.UPDATE_ETA_INTERVAL);
+// setInterval(updateMassAveEta, interval);
