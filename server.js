@@ -18,5 +18,5 @@ io.on('connection', function (socket) {
 
 setInterval(function () {
   io.emit('draw', getFrame());
-}, 10000);
+}, 1000);
 

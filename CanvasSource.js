@@ -10,8 +10,6 @@ export default class CanvasSource {
     this.context = this.canvas.getContext('2d');
     this.context.addFont(mincraftia);
     this.context.font = '8px mincraftia';
-    this.context.fillStyle = `#fc8b00`; // 00B157
-    this.context.imageSmoothingEnabled = false;
   }
 
   getPixels() {

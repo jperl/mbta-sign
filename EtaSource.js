@@ -3,27 +3,62 @@ import { massAveEta } from './mbta';
 import CanvasSource from './CanvasSource';
 
 export default class EtaSource extends CanvasSource {
-  minsFromNow(date) {
-    return moment(date).diff(moment(), 'minutes');
+  timeString(date) {
+    const seconds = moment(date).diff(moment(), 'seconds');
+
+    if (seconds < 60) {
+      return seconds + ' sec';
+    }
+
+    return Math.floor(seconds / 60) + ' min';
   }
 
-  inboundEta() {
-    let text = '';
+  etaText(predictions) {
+    if (predictions.length) {
+      let text = '';
 
-    if (massAveEta.inbound.length) {
-      text += 'INB ' + this.minsFromNow(massAveEta.inbound[0]);
+      for (var i = 0; i < 2 && i < predictions.length; i++) {
+        if (text.length) text += ', ';
+        text += this.timeString(predictions[i]);
+      }
+
+      return text;
     }
 
-    if (massAveEta.outbound.length) {
-      if (text.length) text += ' ';
+    return 'loading';
+  }
 
-      text += 'OUT ' + this.minsFromNow(massAveEta.outbound[0]);
-    }
+  lineOne() {
+    return 'Oak Grove';
+  }
 
-    return text || 'No Eta';
+  lineTwo() {
+    return this.etaText(massAveEta.oakGrove);
+  }
+
+  lineThree() {
+    return 'Forest Hills';
+  }
+
+  lineFour() {
+    return this.etaText(massAveEta.forestHills);
   }
 
   render() {
-    this.context.fillText(this.inboundEta(), 0, this.height / 2);
+    this.context.fillStyle = '#fc8b00';
+    this.context.textAlign = 'left';
+    this.context.fillText(this.lineOne(), 0, 12);
+
+    this.context.fillStyle = '#00B157';
+    this.context.textAlign = 'right';
+    this.context.fillText(this.lineTwo(), 64, 20);
+
+    this.context.fillStyle = '#fc8b00';
+    this.context.textAlign = 'left';
+    this.context.fillText(this.lineThree(), 0, 28);
+
+    this.context.fillStyle = '#00B157';
+    this.context.textAlign = 'right';
+    this.context.fillText(this.lineFour(), 64, 36);
   }
 }

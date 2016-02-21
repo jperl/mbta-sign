@@ -1,27 +1,27 @@
 const mbtapi = require('mbtapi').create({
-  apiKey: process.env.MBTA_API_KEY
+  apiKey: process.env.MBTA_API_KEY,
 });
 
-function departureTimes(stopId) {
+function arrivalTimes(stopId) {
   return mbtapi.predictionsByStop(stopId).then(function (predictions) {
     const trips = predictions.mode[0].route[0].direction[0].trip;
     return trips.map(trip => {
-      const arrivalTime = new Date(0);
-      arrivalTime.setUTCSeconds(Number(trip.sch_arr_dt));
-      return arrivalTime;
+      var predictionDate = new Date();
+      predictionDate.setSeconds(predictionDate.getSeconds() +  Number(trip.pre_away));
+      return predictionDate;
     });
   });
 }
 
-export const massAveEta = { inbound: [], outbound: [] };
+export const massAveEta = { forestHills: [], oakGrove: [] };
 
 function updateMassAveEta() {
   return Promise.all([
-    departureTimes('70013'),
-    departureTimes('70012')
+    arrivalTimes('70013'),
+    arrivalTimes('70012')
   ]).then(times => {
-    massAveEta.inbound = times[0];
-    massAveEta.outbound = times[1];
+    massAveEta.oakGrove = times[0];
+    massAveEta.forestHills = times[1];
     console.log('ETA updated', massAveEta);
   });
 }
