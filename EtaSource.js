@@ -3,13 +3,6 @@ import { massAveEta } from './mbta';
 import CanvasSource from './CanvasSource';
 
 export default class EtaSource extends CanvasSource {
-  constructor() {
-    super();
-
-    this.context.font = '10px Visitor TT1 BRK Regular';
-    this.context.fillStyle = 'red';
-  }
-
   minsFromNow(date) {
     return moment(date).diff(moment(), 'minutes');
   }

@@ -1,4 +1,6 @@
-import Canvas from 'canvas';
+import Canvas, { Font } from 'canvas';
+
+const mincraftia = new Font('mincraftia', __dirname + '/Minecraftia-Regular.ttf');
 
 export default class CanvasSource {
   constructor() {
@@ -6,6 +8,10 @@ export default class CanvasSource {
     this.height = 32;
     this.canvas = new Canvas(this.width, this.height)
     this.context = this.canvas.getContext('2d');
+    this.context.addFont(mincraftia);
+    this.context.font = '8px mincraftia';
+    this.context.fillStyle = `#fc8b00`; // 00B157
+    this.context.imageSmoothingEnabled = false;
   }
 
   getPixels() {

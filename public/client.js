@@ -30,15 +30,8 @@ $(document).ready(function () {
       context.beginPath();
       context.arc(x + (pitch / 2), y + (pitch / 2), pitch / 3, 0, 2 * Math.PI, false);
       context.fillStyle = `rgba(${r},${g},${b},${a})`;
+
       context.fill();
-
-      // context.fillStyle = `rgba(${r},${g},${b},${a})`;
-      // context.fillRect(x, y, 1, 1);
-
-      // if (r !== 0) {
-      //   context.fillStyle = `rgb(${r},${g},${b})`;
-      //   context.fillRect(x, y, 1, 1);
-      // }
 
       x += pitch;
       if (x % canvas.width === 0) {
