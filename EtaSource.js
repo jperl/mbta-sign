@@ -6,8 +6,10 @@ export default class EtaSource extends CanvasSource {
   timeString(date) {
     const seconds = moment(date).diff(moment(), 'seconds');
 
-    if (seconds < 60) {
-      return seconds + ' sec';
+    if (seconds <= 0) {
+      return '0 s';
+    } else if (seconds < 60) {
+      return seconds + ' s';
     }
 
     return Math.floor(seconds / 60) + ' min';
