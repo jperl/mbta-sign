@@ -7,7 +7,7 @@ export default class EtaSource extends CanvasSource {
     const seconds = moment(date).diff(moment(), 'seconds');
 
     if (seconds <= 0) {
-      return '0 s';
+      return 'Arriving';
     } else if (seconds < 60) {
       return seconds + ' s';
     }
@@ -16,7 +16,7 @@ export default class EtaSource extends CanvasSource {
   }
 
   etaText(predictions) {
-    if (predictions.length) {
+    if (predictions && predictions.length) {
       let text = '';
 
       for (var i = 0; i < 2 && i < predictions.length; i++) {
@@ -27,7 +27,8 @@ export default class EtaSource extends CanvasSource {
       return text;
     }
 
-    return 'loading';
+    // If there are no predictions show nothing
+    return '';
   }
 
   lineOne() {
